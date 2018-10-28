@@ -1,0 +1,20 @@
+RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+AddDefaultCharset utf-8
+
+<IfModule mod_headers.c>
+    Header add Access-Control-Allow-Origin "*"
+	Header set Access-Control-Allow-Origin "http://www.espncricinfo.com/rss/content/story/feeds/2.xml"
+	Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+	Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+	Header add Access-Control-Allow-Credentials "true"
+</IfModule>
+
+<FilesMatch "\.(json)$">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>
